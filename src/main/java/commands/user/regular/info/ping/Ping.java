@@ -1,0 +1,29 @@
+package commands.user.regular.info.ping;
+
+import commands.base.Category;
+import commands.base.CommandWithoutSubCommands;
+import events.MessageReceivedEvent;
+import net.dv8tion.jda.api.JDA;
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.MessageChannel;
+
+public class Ping extends CommandWithoutSubCommands {
+	public Ping() {
+		super(Category.INFORMATION
+				, "Find out the bot ping with the Discord server"
+				, null
+				, true);
+		this.addName("Ping");
+		this.buildHelpMessage();
+	}
+
+	@Override
+	protected void runCommandActions(MessageReceivedEvent event) {
+		MessageChannel channel = event.getChannel();
+		JDA jda = event.getJda();
+		Message msg = channel.sendMessage("Pong!").complete();
+		String result = String.format("Pong!" +
+				"\n**%dms** directly • **%dms** for requests.", jda.getGatewayPing(), jda.getRestPing().complete().longValue());
+		msg.editMessage(result).queue();
+	}
+}

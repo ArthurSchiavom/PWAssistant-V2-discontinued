@@ -1,0 +1,57 @@
+package commands.user.admin.utilities.trigger;
+
+import commands.base.Command;
+import commands.base.CommandWithoutSubCommands;
+import commands.base.Requirement;
+import events.MessageReceivedEvent;
+import information.ownerconfiguration.Embeds;
+import information.triggers.Trigger;
+import information.triggers.TriggerRegister;
+import net.dv8tion.jda.api.EmbedBuilder;
+
+import java.util.List;
+
+public class TriggerConsult extends CommandWithoutSubCommands {
+	private final static int MAX_REPLY_CHARS_DISPLAY = 50;
+
+	public TriggerConsult(Command superCommand) {
+		super(superCommand.getCategory()
+				, "Remove a trigger."
+				, "TriggerName"
+				, true
+				, superCommand);
+		this.addName("Consult");
+		this.addName("List");
+		this.addName("C");
+		this.getRequirementsManager().addRequirement(Requirement.ADMIN);
+		this.buildHelpMessage();
+	}
+
+	@Override
+	protected void runCommandActions(MessageReceivedEvent event) {
+		List<Trigger> triggers = TriggerRegister.getInstance().getGuildTriggers(event.getGuild().getIdLong());
+		StringBuilder triggerListDisplay = new StringBuilder();
+		if (triggers != null && !triggers.isEmpty()) {
+			for (Trigger trigger : triggers) {
+				String fullReply = trigger.getReply();
+				String replyDisplay;
+				try {
+					replyDisplay = fullReply.substring(0, MAX_REPLY_CHARS_DISPLAY) + "`...`";
+				} catch (IndexOutOfBoundsException e) {
+					replyDisplay = fullReply;
+				}
+				triggerListDisplay.append("\n\n**").append(trigger.getTriggerLowerCase())
+						.append("** -> ").append(replyDisplay.replace("*", "")
+						.replace("`", "")
+						.replace("_", "")
+						.replace("~", "")); // The replace is done because those characters can mess up the formatting
+			}
+		}
+		else {
+			triggerListDisplay.append("Searched everywhere with beeps and boops magic but didn't find any triggers in this server.");
+		}
+		EmbedBuilder eb = new EmbedBuilder().setTitle("Triggers").setDescription(triggerListDisplay.toString()).setFooter("Did you know that triggers can be used to make custom commands?!");
+		Embeds.configDefaultEmbedColor(eb);
+		event.getChannel().sendMessage(eb.build()).queue();
+	}
+}
