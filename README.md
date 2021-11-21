@@ -81,6 +81,17 @@ Digital Ocean and Linux (Ubuntu).
 * Log out of a server given your ID.
 * New user log - Whenever a new user enters the main server, a notification is sent along with account age information.
 * Indicates when a user starts
+respond to the welcome questionnaire.
+
+# Settings
+
+To run the bot you need to configure:
+* Data base
+* Bot account at https://discord.com/developers/applications
+* Configuration files according to the template in the project's root directory
+   * token.cfg
+   * config.cfg
+   * ItemIDList.cfg
 
 ---
 
