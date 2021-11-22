@@ -10,11 +10,15 @@ import javax.annotation.CheckForNull;
 import java.sql.*;
 
 /**
- * Manages interaction with the database. <b>Add tables creation to initializeDatabase.</b>
+ * Manages interaction with the database. <b>Add tables creation to
+ * initializeDatabase.</b>
  */
 public class DatabaseManager {
 	private static DatabaseManager instance;
-	private DatabaseManager() {}
+
+	private DatabaseManager() {
+	}
+
 	/**
 	 * @return This singleton's instance.
 	 */
@@ -26,8 +30,8 @@ public class DatabaseManager {
 	private Connection connection;
 
 	private void initializeTables(Connection connection) throws SQLException {
-		Table[] tables = {PWIClockTable.initialize(), CountdownClockTable.initialize(), TriggersTable.initialize()
-				, MessagingSchedulerTable.initialize()};
+		Table[] tables = { PWIClockTable.initialize(), CountdownClockTable.initialize(), TriggersTable.initialize(),
+				MessagingSchedulerTable.initialize() };
 
 		for (Table table : tables) {
 			createTableIfNotExists(connection, table);
@@ -73,11 +77,13 @@ public class DatabaseManager {
 	/**
 	 * Starts a connection with the database.
 	 *
-	 * @param createDatabase If it should be attempted to create the schema if it doesn't exist yet.
+	 * @param createDatabase If it should be attempted to create the schema if it
+	 *                       doesn't exist yet.
 	 */
 	private void startConnection(boolean createDatabase) {
 		try {
-			connection = DriverManager.getConnection("jdbc:mysql://" + Database.databaseUrl, Database.databaseUsername, Database.databasePassword);
+			connection = DriverManager.getConnection("jdbc:mysql://" + Database.databaseUrl, Database.databaseUsername,
+					Database.databasePassword);
 			if (createDatabase) {
 				Statement statement = connection.createStatement();
 				String command = "CREATE DATABASE IF NOT EXISTS " + Database.databaseName;
@@ -94,7 +100,7 @@ public class DatabaseManager {
 	 * Creates a database table if it doesn't exist yet.
 	 *
 	 * @param connection The database connection.
-	 * @param table The table.
+	 * @param table      The table.
 	 * @throws SQLException If the operation fails.
 	 */
 	private void createTableIfNotExists(Connection connection, Table table) throws SQLException {
@@ -123,8 +129,7 @@ public class DatabaseManager {
 				if (attempt < 2) {
 					startConnection(false);
 					attempt++;
-				}
-				else
+				} else
 					e.printStackTrace();
 			}
 		}
@@ -133,7 +138,7 @@ public class DatabaseManager {
 			System.out.println("FAILED TO ACCESS DATABASE.");
 			return null;
 		}
-		
+
 		try {
 			return connection.prepareStatement(stm);
 		} catch (SQLException e) {
