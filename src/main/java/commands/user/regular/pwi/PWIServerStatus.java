@@ -3,40 +3,19 @@ package commands.user.regular.pwi;
 import commands.base.Category;
 import commands.base.CommandWithoutSubCommands;
 import events.MessageReceivedEvent;
-import information.Bot;
 import information.ownerconfiguration.Embeds;
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.MessageBuilder;
-import net.dv8tion.jda.api.Permission;
-import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.MessageChannel;
-import net.dv8tion.jda.api.entities.SelfUser;
-import net.dv8tion.jda.api.entities.TextChannel;
-import net.dv8tion.jda.api.entities.Invite.Channel;
-import net.dv8tion.jda.api.events.Event;
-import net.dv8tion.jda.api.events.channel.text.GenericTextChannelEvent;
-import net.dv8tion.jda.api.events.message.MessageEmbedEvent;
-import net.dv8tion.jda.api.managers.ChannelManager;
-import net.dv8tion.jda.api.requests.restaction.GuildAction.ChannelData;
-import net.dv8tion.jda.internal.requests.Route.Self;
-
-import java.io.Console;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Socket;
-import java.lang.Object;
-import java.util.Timer;
-import java.util.TimerTask;
-
-import com.fasterxml.jackson.databind.util.ArrayBuilders.BooleanBuilder;
 
 public class PWIServerStatus extends CommandWithoutSubCommands {
-	private final String DA_SERVER_URL = "localhost";// pwieu3.en.perfectworld.eu
+	private final String DA_SERVER_URL = "pwieu3.en.perfectworld.eu";
 	private final String ET_SERVER_URL = "pwiwest4.perfectworld.com";
 	private final String TT_SERVER_URL = "pwigc2.perfectworld.com";
 	private final String TI_SERVER_URL = "pwieast2.perfectworld.com";
-	private final int serverPort = 3000;
+	private final int serverPort = 29000;
 
 	public PWIServerStatus() {
 		super(Category.PWI, "Check PWI servers' statuses and ping (from bot location)!", null, true);
@@ -66,10 +45,10 @@ public class PWIServerStatus extends CommandWithoutSubCommands {
 
 	public String getServersAvailabilityDisplay() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("**Etherblade**: ").append(serverAvailabilityCheck(ET_SERVER_URL, 29000))
-				.append("\n\n**Twilight Temple**: ").append(serverAvailabilityCheck(TT_SERVER_URL, 29000))
+		sb.append("**Etherblade**: ").append(serverAvailabilityCheck(ET_SERVER_URL, serverPort))
+				.append("\n\n**Twilight Temple**: ").append(serverAvailabilityCheck(TT_SERVER_URL, serverPort))
 				.append("\n\n**Dawnglory**: ").append(serverAvailabilityCheck(DA_SERVER_URL, serverPort))
-				.append("\n\n**Tideswell**: ").append(serverAvailabilityCheck(TI_SERVER_URL, 29000));
+				.append("\n\n**Tideswell**: ").append(serverAvailabilityCheck(TI_SERVER_URL, serverPort));
 		System.out.println(sb.toString());
 		return sb.toString();
 	}
