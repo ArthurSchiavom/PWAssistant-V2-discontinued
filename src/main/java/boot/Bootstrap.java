@@ -19,6 +19,7 @@ import net.dv8tion.jda.api.entities.Activity;
 import questionnaire.base.QuestionnaireRegister;
 import timer.HalfMinutely;
 import timer.Minutely;
+import pwiserverchecks.pwiserverchecks;
 
 import java.awt.*;
 import java.io.BufferedReader;
@@ -58,6 +59,9 @@ public class Bootstrap {
 		if (!loadPWIItems()) {
 			return false;
 		}
+		pwiserverchecks pwiServerChecks = new pwiserverchecks();
+		pwiServerChecks.timerCheckServerStatus();
+
 		/** LOAD CONFIG FILES */
 
 		/** LOAD CLASS INFO/SINGLETONS */
@@ -210,4 +214,4 @@ public class Bootstrap {
 		}
 		return true;
 	}
-}
+};

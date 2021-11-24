@@ -3,7 +3,7 @@ package information.ownerconfiguration;
 import net.dv8tion.jda.api.EmbedBuilder;
 
 import java.awt.*;
-
+// Refactor my patch to use extra classes like this to handle embed and other functions
 /**
  * Contains the owner configuration for embeds.
  */
