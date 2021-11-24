@@ -11,10 +11,7 @@ import java.util.Calendar;
 
 public class PWIServerTime extends CommandWithoutSubCommands {
 	public PWIServerTime() {
-		super(Category.PWI
-				, "Check the time in a given server"
-				, "server"
-				, false);
+		super(Category.PWI, "Check the time in a given server", "server", false);
 		this.addName("PWIServerTime");
 		this.addName("ServerTime");
 		this.addExample("dawnglory", "Displays the current time in Dawnglory.");
