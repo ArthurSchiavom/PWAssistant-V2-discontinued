@@ -11,6 +11,7 @@
 .mtj.tmp/
 
 # Package Files #
+token.cfg
 *.jar
 *.war
 *.nar
@@ -133,3 +134,4 @@ gradle-app.setting
 
 # # Work around https://youtrack.jetbrains.com/issue/IDEA-116898
 # gradle/wrapper/gradle-wrapper.properties
+token.cfg
