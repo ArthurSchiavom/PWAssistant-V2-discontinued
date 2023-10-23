@@ -4,15 +4,19 @@ import commands.base.Category;
 import commands.base.Command;
 import commands.base.CommandWithoutSubCommands;
 import commands.base.Requirement;
-import events.MessageReceivedEvent;
 import net.dv8tion.jda.api.JDA;
-import net.dv8tion.jda.api.MessageBuilder;
 import net.dv8tion.jda.api.OnlineStatus;
-import net.dv8tion.jda.api.entities.*;
+import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.entities.Member;
+import net.dv8tion.jda.api.entities.channel.middleman.MessageChannel;
+import net.dv8tion.jda.api.entities.User;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.utils.SplitUtil;
 import utils.Utils;
 
 import java.util.List;
-import java.util.Queue;
+
+import static net.dv8tion.jda.api.entities.Message.MAX_CONTENT_LENGTH;
 
 public class Status extends CommandWithoutSubCommands {
 	private final static String ARG_COUNT = "count";
@@ -34,7 +38,7 @@ public class Status extends CommandWithoutSubCommands {
 
 	@Override
 	protected void runCommandActions(MessageReceivedEvent event) {
-		JDA jda = event.getJda();
+		JDA jda = event.getJDA();
 		MessageChannel channel = event.getChannel();
 		String args = this.extractArgumentsOnly(event.getMessage().getContentRaw());
 		if (args == null)
@@ -49,11 +53,11 @@ public class Status extends CommandWithoutSubCommands {
 				messageString = buildCountDisplay(jda);
 
 		}
-		Queue<Message> messageQueue = new MessageBuilder(messageString).buildAll(MessageBuilder.SplitPolicy.NEWLINE);
-		Message msg = messageQueue.poll();
-		while (msg != null) {
-			channel.sendMessage(msg).queue();
-			msg = messageQueue.poll();
+
+		int maxLength = (int) (MAX_CONTENT_LENGTH * 0.75);
+		List<String> messages = SplitUtil.split(messageString, maxLength, true, SplitUtil.Strategy.NEWLINE);
+		for (String messageContent : messages) {
+			channel.sendMessage(messageContent).queue();
 		}
 	}
 

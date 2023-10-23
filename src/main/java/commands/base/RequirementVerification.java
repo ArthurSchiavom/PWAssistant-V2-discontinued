@@ -1,6 +1,6 @@
 package commands.base;
 
-import events.MessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 /**
  * Callback for an operation that verifies if a given event meets the command running requirements.

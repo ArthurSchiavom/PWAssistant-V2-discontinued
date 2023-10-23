@@ -1,8 +1,8 @@
 package commands.base;
 
-import events.MessageReceivedEvent;
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.MessageBuilder;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.utils.messages.MessageCreateBuilder;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -62,14 +62,14 @@ public abstract class CommandWithSubCommands extends Command {
         if (this.getNames().size() == 0)
             throw new NullPointerException("No name assigned to this command");
 
-        MessageBuilder messageBuilder = new MessageBuilder();
+        MessageCreateBuilder messageBuilder = new MessageCreateBuilder();
         EmbedBuilder eb = new EmbedBuilder();
 
         setHelpEmbedHeader(eb);
         this.setHelpEmbedAliases(eb, this.getNames());
         this.setHelpEmbedColor(eb);
 
-        messageBuilder.setEmbed(eb.build());
+        messageBuilder.setEmbeds(eb.build());
         this.setHelpMessage(messageBuilder.build());
     }
 

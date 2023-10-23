@@ -3,13 +3,12 @@ package commands.user.owner.utils.broadcastToOwners;
 import commands.base.Category;
 import commands.base.CommandWithoutSubCommands;
 import commands.base.Requirement;
-import events.MessageReceivedEvent;
 import information.Bot;
-import net.dv8tion.jda.api.MessageBuilder;
 import net.dv8tion.jda.api.entities.Guild;
-import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.MessageChannel;
+import net.dv8tion.jda.api.entities.channel.middleman.MessageChannel;
 import net.dv8tion.jda.api.entities.User;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.utils.messages.MessageCreateData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +36,7 @@ public class BroadcastToOwners extends CommandWithoutSubCommands {
 		}
 
 		String messageString = "`This message is only being sent to server owners`\n\n" + args;
-		Message message = new MessageBuilder(messageString).build();
+		MessageCreateData message = MessageCreateData.fromContent(messageString);
 
 		List<Guild> guilds = Bot.getJdaInstance().getGuilds();
 		int successCount = 0;

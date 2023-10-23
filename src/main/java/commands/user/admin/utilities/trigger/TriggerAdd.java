@@ -3,7 +3,7 @@ package commands.user.admin.utilities.trigger;
 import commands.base.Command;
 import commands.base.CommandWithoutSubCommands;
 import commands.base.Requirement;
-import events.MessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import questionnaire.trigger.AddTriggerQuestionnaire;
 
 public class TriggerAdd extends CommandWithoutSubCommands {

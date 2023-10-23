@@ -5,7 +5,7 @@ import information.Bot;
 import information.ownerconfiguration.Embeds;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.JDA;
-import net.dv8tion.jda.api.MessageBuilder;
+import net.dv8tion.jda.api.utils.messages.MessageEditData;
 import utils.Utils;
 
 import java.time.Duration;
@@ -51,7 +51,7 @@ public class CountdownClock extends Clock {
 				.setDescription(clockDurationDisplay);
 
 		Embeds.configDefaultEmbedColor(eb);
-		shouldKeepClock = this.editClockMessageSync(jda, new MessageBuilder(eb).build());
+		shouldKeepClock = this.editClockMessageSync(jda, MessageEditData.fromEmbeds(eb.build()));
 
 		if (isTimeOver)
 			shouldKeepClock = false;

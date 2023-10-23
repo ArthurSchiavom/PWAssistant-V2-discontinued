@@ -1,6 +1,6 @@
 package questionnaire.base.question;
 
-import events.MessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import questionnaire.base.Questionnaire;
 import timer.operation.checkExpiredQuestions.ExpirablesChecker;
 

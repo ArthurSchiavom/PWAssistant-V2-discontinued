@@ -1,6 +1,6 @@
 package commands.base;
 
-import events.MessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.util.ArrayList;
 import java.util.Arrays;

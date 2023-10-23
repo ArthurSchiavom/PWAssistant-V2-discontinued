@@ -4,9 +4,9 @@ import commands.CommandExecutor;
 import commands.base.Category;
 import commands.base.Command;
 import commands.base.CommandWithoutSubCommands;
-import events.MessageReceivedEvent;
 import information.ownerconfiguration.Commands;
 import information.ownerconfiguration.Guilds;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 /**
  * Help command.

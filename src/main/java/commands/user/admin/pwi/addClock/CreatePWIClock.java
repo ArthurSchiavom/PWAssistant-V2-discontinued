@@ -4,15 +4,15 @@ import commands.base.Category;
 import commands.base.CommandWithoutSubCommands;
 import commands.base.Requirement;
 import error.Reporter;
-import events.MessageReceivedEvent;
 import information.PWIServer;
 import information.clocks.Clock;
 import information.clocks.ClockRegister;
 import information.clocks.PWIClock;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.entities.MessageEmbed;
+import net.dv8tion.jda.api.entities.channel.middleman.MessageChannel;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.util.List;
 
@@ -52,7 +52,7 @@ public class CreatePWIClock extends CommandWithoutSubCommands {
 				.setTitle("【ＣＯＯＬ　ＣＬＯＣＫ　ＬＯＡＤＩＮＧ】")
 				.setDescription("This can take a few seconds.")
 				.build();
-		Message loadingMsg = channel.sendMessage(loadingClockEmbed).complete();
+		Message loadingMsg = channel.sendMessageEmbeds(loadingClockEmbed).complete();
 		String msgId = loadingMsg.getId();
 		Clock newClock = new PWIClock(servers, guildId, channelId, msgId);
 

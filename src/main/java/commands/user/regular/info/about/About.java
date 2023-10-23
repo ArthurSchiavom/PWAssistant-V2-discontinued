@@ -2,7 +2,7 @@ package commands.user.regular.info.about;
 
 import commands.base.Category;
 import commands.base.CommandWithoutSubCommands;
-import events.MessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class About extends CommandWithoutSubCommands {
 	public About() {
@@ -26,6 +26,6 @@ public class About extends CommandWithoutSubCommands {
 				+ "\nWe currently have over 300 members from all servers online every day!"
 				+ "\n**__If you wish to join, we'll be glad to welcome you!__**"
 				+ "\n"
-				+ "\n♥ \uD835\uDC08\uD835\uDC27\uD835\uDC2F\uD835\uDC22\uD835\uDC2D\uD835\uDC1E: https://discord.gg/B8N35um").queue();
+				+ "\n♥ \uD835\uDC08\uD835\uDC27\uD835\uDC2F\uD835\uDC22\uD835\uDC2D\uD835\uDC1E: https://discord.gg/x7sKUq28jA").queue();
 	}
 }

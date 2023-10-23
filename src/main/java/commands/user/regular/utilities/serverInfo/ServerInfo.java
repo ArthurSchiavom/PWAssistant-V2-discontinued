@@ -2,14 +2,12 @@ package commands.user.regular.utilities.serverInfo;
 
 import commands.base.Category;
 import commands.base.CommandWithoutSubCommands;
-import events.MessageReceivedEvent;
 import information.ownerconfiguration.Embeds;
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Invite;
-import net.dv8tion.jda.api.entities.Member;
-import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.time.OffsetDateTime;
 import java.time.format.TextStyle;
@@ -29,7 +27,7 @@ public class ServerInfo extends CommandWithoutSubCommands {
 	@Override
 	protected void runCommandActions(MessageReceivedEvent event) {
 		Guild guild = event.getGuild();
-		TextChannel channel = event.getGuildChannel();
+		TextChannel channel = event.getGuildChannel().asTextChannel();
 		EmbedBuilder eb = new EmbedBuilder();
 		eb.setThumbnail(guild.getIconUrl())
 				.addField("General information", calcGeneralInfo(guild), false)
@@ -37,20 +35,19 @@ public class ServerInfo extends CommandWithoutSubCommands {
 				.addField("Channels", calcChannelInfo(guild), false)
 				.addField("Invite", calcInviteInfo(guild, channel), false);
 		Embeds.configDefaultEmbedColor(eb);
-		channel.sendMessage(eb.build()).queue();
+		channel.sendMessageEmbeds(eb.build()).queue();
 	}
 
 	public static String calcGeneralInfo(Guild guild) {
 		OffsetDateTime creationTime = guild.getTimeCreated();
-		return String.format("**%s** was created on **%d of %s %d** by **%s** and is hosted at %s." +
+		return String.format("**%s** was created on **%d of %s %d** by **%s**." +
 						"\nThere are %d custom emotes!",
 				guild.getName()
 				, creationTime.getDayOfMonth()
 				, creationTime.getMonth().getDisplayName(TextStyle.FULL, Locale.ENGLISH)
 				, creationTime.getYear()
 				, guild.getOwner().getUser().getAsTag()
-				, guild.getRegion().getName()
-				, guild.getEmotes().size());
+				, guild.getEmojis().size());
 	}
 
 	public static String calcMembersInfo(Guild guild) {

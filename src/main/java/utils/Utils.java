@@ -1,20 +1,33 @@
 package utils;
 
-import events.MessageReceivedEvent;
 import information.Bot;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.OnlineStatus;
-import net.dv8tion.jda.api.entities.*;
+import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.entities.Member;
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.Role;
+import net.dv8tion.jda.api.entities.User;
+import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
+import net.dv8tion.jda.api.entities.channel.middleman.MessageChannel;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.exceptions.ErrorResponseException;
 import net.dv8tion.jda.api.exceptions.HierarchyException;
 import net.dv8tion.jda.api.exceptions.InsufficientPermissionException;
 import net.dv8tion.jda.api.requests.ErrorResponse;
+import net.dv8tion.jda.api.utils.messages.MessageCreateData;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.CheckForNull;
 import java.time.Duration;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -112,7 +125,7 @@ public class Utils {
             long userId = member.getUser().getIdLong();
             if (!exceptionUserIds.contains(userId)) {
                 member.getUser().openPrivateChannel().queue(channel -> {
-                    channel.sendMessage(message).queue(null, e -> {/* Override println error message with nothing as this means that the user doesn't allow DMs */});
+                    channel.sendMessage(MessageCreateData.fromMessage(message)).queue(null, e -> {/* Override println error message with nothing as this means that the user doesn't allow DMs */});
                 });
             }
         }
@@ -152,7 +165,7 @@ public class Utils {
      * @return (1) The first channel mentioned if any or (2) null if no channel mentioned.
      */
     public static MessageChannel getSingleMentionedChannel(Message msg) {
-        List<TextChannel> mentionedChannels = msg.getMentionedChannels();
+        List<TextChannel> mentionedChannels = msg.getMentions().getChannels(TextChannel.class);
         if (mentionedChannels.size() < 1)
             return null;
         else
@@ -166,7 +179,7 @@ public class Utils {
      * @return (1) The first role mentioned if any or (2) null if no role mentioned.
      */
     public static Role getRoleMentioned(MessageReceivedEvent event) {
-        List<Role> rolesMentioned = event.getMessage().getMentionedRoles();
+        List<Role> rolesMentioned = event.getMessage().getMentions().getRoles();
         if (rolesMentioned.size() < 1) {
             return null;
         } else
@@ -251,7 +264,6 @@ public class Utils {
     }
 
     /**
-     * @param event
      * @param rolesIds
      * @return A user-readable message of the result of the operation.
      */

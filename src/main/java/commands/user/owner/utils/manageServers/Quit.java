@@ -4,9 +4,9 @@ import commands.base.Category;
 import commands.base.Command;
 import commands.base.CommandWithoutSubCommands;
 import commands.base.Requirement;
-import events.MessageReceivedEvent;
 import net.dv8tion.jda.api.entities.Guild;
-import net.dv8tion.jda.api.entities.MessageChannel;
+import net.dv8tion.jda.api.entities.channel.middleman.MessageChannel;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class Quit extends CommandWithoutSubCommands {
 	public Quit(Command superCommand) {
@@ -30,7 +30,7 @@ public class Quit extends CommandWithoutSubCommands {
 		}
 		else {
 			try {
-				Guild guild = event.getJda().getGuildById(args);
+				Guild guild = event.getJDA().getGuildById(args);
 				String guildName = guild.getName();
 				guild.leave().complete();
 				channel.sendMessage("Left **" + guildName + "**").queue();

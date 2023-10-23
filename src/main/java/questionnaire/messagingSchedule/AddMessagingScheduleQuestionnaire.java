@@ -4,9 +4,9 @@ import information.CacheModificationSuccessState;
 import information.scheduling.manager.RepetitionType;
 import information.scheduling.messageSchedule.MessagingScheduler;
 import information.scheduling.messageSchedule.MessagingSchedulerRegister;
-import net.dv8tion.jda.api.MessageBuilder;
-import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
+import net.dv8tion.jda.api.entities.channel.middleman.GuildMessageChannel;
+import net.dv8tion.jda.api.utils.messages.MessageCreateData;
 import questionnaire.base.Questionnaire;
 import questionnaire.base.WhenToDeleteMessages;
 import questionnaire.base.WhichMessagesToDelete;
@@ -96,9 +96,9 @@ public class AddMessagingScheduleQuestionnaire extends Questionnaire {
 
 		this.addQuestion("Which channel should the messages be sent on? (example: #announcements)"
 				, event -> {
-					List<TextChannel> textChannels = event.getMessage().getMentionedChannels();
+					List<GuildMessageChannel> textChannels = event.getMessage().getMentions().getChannels(GuildMessageChannel.class);
 					if (textChannels.isEmpty()) {
-						TextChannel channel = event.getGuildChannel();
+						TextChannel channel = event.getChannel().asTextChannel();
 						channel.sendMessage("I couldn't understand that. Please mention the channel, for example: " + channel.getAsMention()).queue(msg -> this.queueMessageToDeleteNextQuestion(msg));
 					}
 					else {
@@ -111,7 +111,7 @@ public class AddMessagingScheduleQuestionnaire extends Questionnaire {
 		this.addQuestion("And finally! What's the message to send?"
 				, event -> {
 					String messageString = event.getMessage().getContentRaw();
-					Message message = new MessageBuilder(messageString).build();
+					MessageCreateData message = MessageCreateData.fromContent(messageString);
 					MessagingScheduler messagingScheduler = new MessagingScheduler(name
 							, event.getGuild().getId()
 							, channelId, message, repetitionType, days, hourMinute[0], hourMinute[1]);

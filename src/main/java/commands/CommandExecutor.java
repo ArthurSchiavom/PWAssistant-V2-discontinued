@@ -8,6 +8,7 @@ import commands.user.admin.pwi.addClock.CreatePWIClock;
 import commands.user.admin.utilities.countdown.Countdown;
 import commands.user.admin.utilities.schedule.Schedule;
 import commands.user.admin.utilities.trigger.Trigger;
+import commands.user.owner.fun.stream.Stream;
 import commands.user.owner.utils.broadcastToOwners.BroadcastToOwners;
 import commands.user.owner.utils.manageServers.ManageServers;
 import commands.user.regular.configuration.toggle.free.games.notification.ToggleFreeGamesNotification;
@@ -17,26 +18,34 @@ import commands.user.regular.fun.randomNumber.RandomNumber;
 import commands.user.regular.fun.say.Say;
 import commands.user.regular.info.about.About;
 import commands.user.regular.info.createcustombot.CreateCustomBot;
-import commands.user.regular.info.donate.Donate;
 import commands.user.regular.info.help.Help;
 import commands.user.regular.info.invite.Invite;
 import commands.user.regular.info.ping.Ping;
 import commands.user.regular.info.support.Support;
-import commands.user.regular.music.Music;
-import commands.user.regular.pwi.*;
+import commands.user.regular.pwi.Codes;
+import commands.user.regular.pwi.PWIClass;
+import commands.user.regular.pwi.PWIItemInfo;
+import commands.user.regular.pwi.PWIItemPrice;
+import commands.user.regular.pwi.PWIServer;
+import commands.user.regular.pwi.PWIServerStatus;
+import commands.user.regular.pwi.PWIServerTime;
 import commands.user.regular.utilities.MemberCount.MemberCount;
 import commands.user.regular.utilities.google.Google;
 import commands.user.regular.utilities.react.React;
 import commands.user.regular.utilities.serverInfo.ServerInfo;
-import events.MessageReceivedEvent;
 import information.ownerconfiguration.Commands;
 import information.ownerconfiguration.Embeds;
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.MessageBuilder;
-import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.utils.messages.MessageCreateData;
 import utils.Utils;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * The command executor registers and executes commands. <b>Register the commands on the initialization method</b>.
@@ -46,11 +55,11 @@ public class CommandExecutor {
 
 	private static final String MAIN_MENU_HELP_THUMBNAIL = "https://live.staticflickr.com/65535/48673315806_a35665d72f_o_d.png";
 
-	private Message ownerHelp;
-	private Message adminUserHelp;
-	private Message regularUserHelp;
-	private Message adminUserHelpMainGuild;
-	private Message regularUserHelpMainGuild;
+	private MessageCreateData ownerHelp;
+	private MessageCreateData adminUserHelp;
+	private MessageCreateData regularUserHelp;
+	private MessageCreateData adminUserHelpMainGuild;
+	private MessageCreateData regularUserHelpMainGuild;
 
 	private List<Command> commands = new ArrayList<>();
 	private List<String> commandsNames = new ArrayList<>();
@@ -71,7 +80,7 @@ public class CommandExecutor {
 		instance.registerCommand(new React());
 		instance.registerCommand(new Help());
 		instance.registerCommand(new Support());
-		instance.registerCommand(new Donate());
+//		instance.registerCommand(new Donate());
 		instance.registerCommand(new Ping());
 
 		instance.registerCommand(new Codes());
@@ -105,6 +114,8 @@ public class CommandExecutor {
 		instance.registerCommand(new ManageServers());
 		instance.registerCommand(new BroadcastToOwners());
 
+		instance.registerCommand(new Stream());
+
 //		instance.registerCommand(new Music());
 		instance.updateAllHelp();
 	}
@@ -112,35 +123,35 @@ public class CommandExecutor {
 	/**
 	 * @return The regular user help message.
 	 */
-	public Message getRegularUserHelp() {
+	public MessageCreateData getRegularUserHelp() {
 		return regularUserHelp;
 	}
 
 	/**
 	 * @return The main guild regular user help message.
 	 */
-	public Message getRegularUserHelpMainGuild() {
+	public MessageCreateData getRegularUserHelpMainGuild() {
 		return regularUserHelpMainGuild;
 	}
 
 	/**
 	 * @return The main guild admin help message.
 	 */
-	public Message getAdminUserHelpMainGuild() {
+	public MessageCreateData getAdminUserHelpMainGuild() {
 		return adminUserHelpMainGuild;
 	}
 
 	/**
 	 * @return The admin user help message.
 	 */
-	public Message getAdminUserHelp() {
+	public MessageCreateData getAdminUserHelp() {
 		return adminUserHelp;
 	}
 
 	/**
 	 * @return The owner help message.
 	 */
-	public Message getOwnerHelp() {
+	public MessageCreateData getOwnerHelp() {
 		return ownerHelp;
 	}
 
@@ -233,10 +244,10 @@ public class CommandExecutor {
 	 * Updates the regular user help message.
 	 */
 	public void updateRegularHelp() {
-		regularUserHelp = new MessageBuilder(calculateGenericHelp(null, null)).build();
+		regularUserHelp = MessageCreateData.fromEmbeds(calculateGenericHelp(null, null).build());
 
 		Requirement[] mayAlsoHaveRequirementsMainGuild = {Requirement.MAIN_GUILD};
-		regularUserHelpMainGuild = new MessageBuilder(calculateGenericHelp(null, mayAlsoHaveRequirementsMainGuild)).build();
+		regularUserHelpMainGuild = MessageCreateData.fromEmbeds(calculateGenericHelp(null, mayAlsoHaveRequirementsMainGuild).build());
 	}
 
 	/**
@@ -244,11 +255,11 @@ public class CommandExecutor {
 	 */
 	public void updateAdminHelp() {
 		Requirement[] requirements = {Requirement.ADMIN};
-		adminUserHelp = new MessageBuilder(calculateGenericHelp(requirements, null)).build();
+		adminUserHelp = MessageCreateData.fromEmbeds(calculateGenericHelp(requirements, null).build());
 
 		Requirement[] requirementsMainGuild = {Requirement.ADMIN};
 		Requirement[] mayAlsoHaveRequirementsMainGuild = {Requirement.MAIN_GUILD};
-		adminUserHelpMainGuild = new MessageBuilder(calculateGenericHelp(requirementsMainGuild, mayAlsoHaveRequirementsMainGuild)).build();
+		adminUserHelpMainGuild = MessageCreateData.fromEmbeds(calculateGenericHelp(requirementsMainGuild, mayAlsoHaveRequirementsMainGuild).build());
 	}
 
 	/**
@@ -257,7 +268,7 @@ public class CommandExecutor {
 	public void updateOwnerHelp() {
 		Requirement[] mustHaveRequirements = {Requirement.OWNER};
 		Requirement[] mayAlsoHaveRequirements = {Requirement.MAIN_GUILD};
-		ownerHelp = new MessageBuilder(calculateGenericHelp(mustHaveRequirements, mayAlsoHaveRequirements)).build();
+		ownerHelp = MessageCreateData.fromEmbeds(calculateGenericHelp(mustHaveRequirements, mayAlsoHaveRequirements).build());
 	}
 
 	/**
@@ -336,7 +347,7 @@ public class CommandExecutor {
 	/**
 	 * Finds the registered commands with given conditions.
 	 *
-	 * @param mustHaveRequirements The commands must have these requirements. Can be null
+	 * @param requirements The commands must have these requirements. Can be null
 	 * @param mayAlsoHaveRequirements The commands may also have these requirements. Can be null
 	 * @return The registered commands that meet the conditions.
 	 */

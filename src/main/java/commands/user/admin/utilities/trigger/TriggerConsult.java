@@ -3,11 +3,11 @@ package commands.user.admin.utilities.trigger;
 import commands.base.Command;
 import commands.base.CommandWithoutSubCommands;
 import commands.base.Requirement;
-import events.MessageReceivedEvent;
 import information.ownerconfiguration.Embeds;
 import information.triggers.Trigger;
 import information.triggers.TriggerRegister;
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.util.List;
 
@@ -52,6 +52,6 @@ public class TriggerConsult extends CommandWithoutSubCommands {
 		}
 		EmbedBuilder eb = new EmbedBuilder().setTitle("Triggers").setDescription(triggerListDisplay.toString()).setFooter("Did you know that triggers can be used to make custom commands?!");
 		Embeds.configDefaultEmbedColor(eb);
-		event.getChannel().sendMessage(eb.build()).queue();
+		event.getChannel().sendMessageEmbeds(eb.build()).queue();
 	}
 }

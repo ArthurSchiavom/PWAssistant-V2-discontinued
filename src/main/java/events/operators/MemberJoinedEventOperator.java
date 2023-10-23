@@ -6,8 +6,8 @@ import information.ownerconfiguration.Embeds;
 import information.ownerconfiguration.Guilds;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Member;
-import net.dv8tion.jda.api.entities.PrivateChannel;
 import net.dv8tion.jda.api.entities.User;
+import net.dv8tion.jda.api.entities.channel.concrete.PrivateChannel;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent;
 import questionnaire.PWIKingdomWelcome.PWIKingdomWelcomeQuestionnaire;
 import utils.Security;
@@ -16,8 +16,6 @@ import utils.Utils;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.time.Instant;
-import java.time.temporal.TemporalAccessor;
-import java.util.concurrent.TimeUnit;
 
 public class MemberJoinedEventOperator {
 
@@ -64,7 +62,7 @@ public class MemberJoinedEventOperator {
 				.appendDescription(" ago")
 				.setThumbnail(user.getEffectiveAvatarUrl());
 
-		event.getJDA().getTextChannelById(589105381784027137L).sendMessage(eb.build()).queue();
+		event.getJDA().getTextChannelById(589105381784027137L).sendMessageEmbeds(eb.build()).queue();
 	}
 
 	private PrivateChannel openPrivateChannel(User user) {

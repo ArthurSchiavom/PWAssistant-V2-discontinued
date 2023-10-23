@@ -3,9 +3,9 @@ package commands.user.admin.utilities.trigger;
 import commands.base.Command;
 import commands.base.CommandWithoutSubCommands;
 import commands.base.Requirement;
-import events.MessageReceivedEvent;
 import information.CacheModificationSuccessState;
 import information.triggers.TriggerRegister;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class TriggerRemove extends CommandWithoutSubCommands {
 	public TriggerRemove(Command superCommand) {

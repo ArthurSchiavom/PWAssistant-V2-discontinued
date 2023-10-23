@@ -1,14 +1,14 @@
 package commands.base;
 
-import events.MessageReceivedEvent;
 import information.admins.AdminsManager;
 import information.ownerconfiguration.Guilds;
 import information.ownerconfiguration.Users;
 import music.GuildMusicManager;
 import music.PlayerManager;
 import net.dv8tion.jda.api.entities.Member;
-import net.dv8tion.jda.api.entities.MessageChannel;
-import net.dv8tion.jda.api.entities.VoiceChannel;
+import net.dv8tion.jda.api.entities.channel.middleman.AudioChannel;
+import net.dv8tion.jda.api.entities.channel.middleman.MessageChannel;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.managers.AudioManager;
 
 /**
@@ -57,7 +57,7 @@ public enum Requirement {
 			return false;
 		}
 
-		VoiceChannel voiceChannel = audioManager.getConnectedChannel();
+		AudioChannel voiceChannel = audioManager.getConnectedChannel();
 		if (!voiceChannel.getMembers().contains(event.getMember())) {
 			channel.sendMessage("You have to be in the same voice channel as me to use this command!").queue();
 			return false;

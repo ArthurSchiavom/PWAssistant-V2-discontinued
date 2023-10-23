@@ -2,9 +2,10 @@ package commands.user.regular.utilities.react;
 
 import commands.base.Category;
 import commands.base.CommandWithoutSubCommands;
-import events.MessageReceivedEvent;
-import net.dv8tion.jda.api.entities.Emote;
 import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.emoji.Emoji;
+import net.dv8tion.jda.api.entities.emoji.RichCustomEmoji;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.util.List;
 
@@ -31,18 +32,18 @@ public class React extends CommandWithoutSubCommands {
 
         String[] argsSplit = args.split(" ");
         String emojiName = argsSplit[0];
-        Emote emote = null;
+        RichCustomEmoji emote = null;
         String messageId = null;
 
         if (argsSplit.length > 1) {
             messageId = argsSplit[1];
         }
 
-        List<Emote> emotes = event.getGuild().getEmotesByName(emojiName, true);
+        List<RichCustomEmoji> emotes = event.getGuild().getEmojisByName(emojiName, true);
         if (!emotes.isEmpty()) {
             emote = emotes.get(0);
         } else {
-            emotes = event.getJda().getEmotesByName(emojiName, true);
+            emotes = event.getJDA().getEmojisByName(emojiName, true);
             if (!emotes.isEmpty()) {
                 emote = emotes.get(0);
             }
@@ -69,7 +70,7 @@ public class React extends CommandWithoutSubCommands {
         }
         else {
             try {
-                event.getChannel().retrieveMessageById(messageId).complete().addReaction(emojiName).complete();
+                event.getChannel().retrieveMessageById(messageId).complete().addReaction(Emoji.fromFormatted(emojiName)).complete();
             } catch (Throwable e) {
                 event.getChannel().sendMessage("Either that emoji isn't valid or I don't have permission to react.").queue();
             }

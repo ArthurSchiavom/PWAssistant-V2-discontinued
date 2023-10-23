@@ -1,8 +1,8 @@
 package information.ownerconfiguration;
 
-import events.MessageReceivedEvent;
 import information.Bot;
 import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class Guilds {
 	public static long mainGuildId;

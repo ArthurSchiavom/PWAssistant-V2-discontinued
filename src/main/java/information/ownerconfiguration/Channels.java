@@ -1,7 +1,7 @@
 package information.ownerconfiguration;
 
 import information.Bot;
-import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 
 public class Channels {
 	public static final String PWI_KINGDOM_GENERAL_CHANNEL_ID = "251460250115375114";

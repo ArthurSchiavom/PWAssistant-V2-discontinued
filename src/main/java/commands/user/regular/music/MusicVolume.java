@@ -3,10 +3,11 @@ package commands.user.regular.music;
 import commands.base.Command;
 import commands.base.CommandWithoutSubCommands;
 import commands.base.Requirement;
-import events.MessageReceivedEvent;
 import music.GuildMusicManager;
 import music.PlayerManager;
 import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.entities.emoji.Emoji;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class MusicVolume extends CommandWithoutSubCommands {
 	public MusicVolume(Command superCommand) {
@@ -31,7 +32,7 @@ public class MusicVolume extends CommandWithoutSubCommands {
 
 		try {
 			musicManager.player.setVolume(Integer.parseInt(args));
-			event.getMessage().addReaction("\uD83D\uDC4C").queue();
+			event.getMessage().addReaction(Emoji.fromUnicode("\uD83D\uDC4C")).queue();
 		} catch (Exception e) {
 			event.getChannel().sendMessage("That's not a valid volume level. <:ffconfused:489925231285239830>").queue();
 		}

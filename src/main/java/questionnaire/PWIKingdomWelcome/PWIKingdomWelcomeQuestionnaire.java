@@ -4,7 +4,7 @@ import information.ownerconfiguration.Guilds;
 import information.ownerconfiguration.roles.Roles;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
-import net.dv8tion.jda.api.entities.MessageChannel;
+import net.dv8tion.jda.api.entities.channel.middleman.MessageChannel;
 import net.dv8tion.jda.api.entities.User;
 import questionnaire.base.Questionnaire;
 import utils.Utils;
@@ -22,7 +22,7 @@ public class PWIKingdomWelcomeQuestionnaire extends Questionnaire {
                     String msgLC = event.getMessage().getContentRaw().toLowerCase();
 
                     User author = event.getAuthor();
-                    event.getJda()
+                    event.getJDA()
                             .getTextChannelById("589105381784027137")
                             .sendMessage(String.format("%s (%s, %s) started answering the welcome questionnaire",
                                     author.getAsMention(), author.getAsTag(), author.getId())).queue();

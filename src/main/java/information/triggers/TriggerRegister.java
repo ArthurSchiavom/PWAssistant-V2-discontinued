@@ -1,13 +1,17 @@
 package information.triggers;
 
 import database.tables.TriggersTable;
-import events.MessageReceivedEvent;
 import information.CacheModificationSuccessState;
-import net.dv8tion.jda.api.entities.MessageChannel;
+import net.dv8tion.jda.api.entities.channel.middleman.MessageChannel;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.CheckForNull;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class TriggerRegister {
 	private static TriggerRegister instance;

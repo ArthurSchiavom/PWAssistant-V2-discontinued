@@ -3,7 +3,7 @@ package commands.user.admin.moderation.warning;
 import commands.base.Category;
 import commands.base.Command;
 import commands.base.CommandWithoutSubCommands;
-import events.MessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class Warn extends CommandWithoutSubCommands {
 	public Warn(Command superCommand) {

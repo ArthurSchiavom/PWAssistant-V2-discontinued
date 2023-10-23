@@ -4,10 +4,11 @@ import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 import commands.base.Command;
 import commands.base.CommandWithoutSubCommands;
 import commands.base.Requirement;
-import events.MessageReceivedEvent;
 import music.GuildMusicManager;
 import music.PlayerManager;
 import music.TrackScheduler;
+import net.dv8tion.jda.api.entities.emoji.Emoji;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class MusicSkip extends CommandWithoutSubCommands {
 	public MusicSkip(Command superCommand) {
@@ -36,6 +37,6 @@ public class MusicSkip extends CommandWithoutSubCommands {
 		}
 		scheduler.nextTrack(true);
 
-		event.getMessage().addReaction("⏩").queue();
+		event.getMessage().addReaction(Emoji.fromUnicode("⏩")).queue();
 	}
 }

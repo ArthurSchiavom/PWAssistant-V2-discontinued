@@ -3,9 +3,9 @@ package commands.user.regular.utilities.MemberCount;
 import commands.base.Category;
 import commands.base.CommandWithoutSubCommands;
 import commands.user.regular.utilities.serverInfo.ServerInfo;
-import events.MessageReceivedEvent;
 import information.ownerconfiguration.Embeds;
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class MemberCount extends CommandWithoutSubCommands {
 
@@ -24,6 +24,6 @@ public class MemberCount extends CommandWithoutSubCommands {
 		EmbedBuilder eb = new EmbedBuilder();
 		eb.setTitle("Server members").setDescription(membersInfo);
 		Embeds.configDefaultEmbedColor(eb);
-		event.getChannel().sendMessage(eb.build()).queue();
+		event.getChannel().sendMessageEmbeds(eb.build()).queue();
 	}
 }

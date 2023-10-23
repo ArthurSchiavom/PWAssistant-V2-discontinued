@@ -3,8 +3,9 @@ package commands.user.regular.music;
 import commands.base.Command;
 import commands.base.CommandWithoutSubCommands;
 import commands.base.Requirement;
-import events.MessageReceivedEvent;
 import music.PlayerManager;
+import net.dv8tion.jda.api.entities.emoji.Emoji;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class MusicReset extends CommandWithoutSubCommands {
 	public MusicReset(Command superCommand) {
@@ -21,6 +22,6 @@ public class MusicReset extends CommandWithoutSubCommands {
 	@Override
 	protected void runCommandActions(MessageReceivedEvent event) {
 		PlayerManager.getInstance().unregisterMusicManager(event.getGuild().getIdLong());
-		event.getMessage().addReaction("\uD83D\uDC4C").queue();
+		event.getMessage().addReaction(Emoji.fromUnicode("\uD83D\uDC4C")).queue();
 	}
 }

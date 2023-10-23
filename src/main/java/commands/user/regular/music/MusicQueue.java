@@ -3,11 +3,11 @@ package commands.user.regular.music;
 import commands.base.Command;
 import commands.base.CommandWithoutSubCommands;
 import commands.base.Requirement;
-import events.MessageReceivedEvent;
 import information.ownerconfiguration.Embeds;
 import music.GuildMusicManager;
 import music.PlayerManager;
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import utils.Utils;
 
 import java.util.List;
@@ -40,6 +40,6 @@ public class MusicQueue extends CommandWithoutSubCommands {
 
 		EmbedBuilder eb = new EmbedBuilder().setTitle("Queue").setDescription(tracksDisplay);
 		Embeds.configDefaultEmbedColor(eb);
-		event.getChannel().sendMessage(eb.build()).queue();
+		event.getChannel().sendMessageEmbeds(eb.build()).queue();
 	}
 }

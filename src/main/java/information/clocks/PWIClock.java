@@ -6,10 +6,14 @@ import information.PWIServer;
 import information.ownerconfiguration.Embeds;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.JDA;
-import net.dv8tion.jda.api.MessageBuilder;
+import net.dv8tion.jda.api.utils.messages.MessageEditData;
 import utils.Utils;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class PWIClock extends Clock {
 	private static Map<PWIServer, String> serverTimesDisplay = new HashMap<>();
@@ -51,7 +55,7 @@ public class PWIClock extends Clock {
 				.setDescription(sb.toString());
 		Embeds.configDefaultEmbedColor(eb);
 
-		return this.editClockMessageSync(jda, new MessageBuilder(eb).build());
+		return this.editClockMessageSync(jda, MessageEditData.fromEmbeds(eb.build()));
 	}
 
 	public synchronized static void updatePWITimes() {

@@ -1,12 +1,11 @@
 package commands.base;
 
-import events.MessageReceivedEvent;
 import information.ownerconfiguration.Channels;
 import information.ownerconfiguration.Commands;
 import information.ownerconfiguration.Embeds;
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.MessageBuilder;
-import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.utils.messages.MessageCreateData;
 
 import javax.annotation.CheckForNull;
 import java.util.ArrayList;
@@ -27,7 +26,7 @@ public abstract class Command {
     private final boolean runInNewThread;
     private final String description;
     private final RequirementsManager requirementsManager = new RequirementsManager();
-    private Message helpMessage = (new MessageBuilder(new StringBuilder("Help was not defined for this command."))).build();
+    private MessageCreateData helpMessage = MessageCreateData.fromContent("Help was not defined for this command.");
 
     /**
      * Creates a new command.
@@ -117,7 +116,7 @@ public abstract class Command {
      * @return A message that contains information about this command or
      * <br>null if the help message was never built.
      */
-    public Message getHelpMessage() {
+    public MessageCreateData getHelpMessage() {
         return helpMessage;
     }
 
@@ -126,7 +125,7 @@ public abstract class Command {
      *
      * @param helpMessage The help message.
      */
-    protected void setHelpMessage(Message helpMessage) {
+    protected void setHelpMessage(MessageCreateData helpMessage) {
         this.helpMessage = helpMessage;
     }
     //</editor-fold>

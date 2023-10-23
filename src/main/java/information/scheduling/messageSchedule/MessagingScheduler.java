@@ -5,8 +5,8 @@ import information.ownerconfiguration.Embeds;
 import information.scheduling.manager.RepetitionType;
 import information.scheduling.manager.ScheduleManager;
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.MessageBuilder;
 import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.utils.messages.MessageCreateData;
 import utils.Utils;
 
 import java.util.ArrayList;
@@ -17,11 +17,11 @@ public class MessagingScheduler {
     private final String name;
     private final String guildId;
     private final String channelId;
-    private final Message message;
+    private final MessageCreateData message;
     private final ScheduleManager scheduleManager;
     private boolean started = false;
 
-    public MessagingScheduler(String name, String guildId, String channelId, Message message, RepetitionType repetitionType, List<Integer> scheduleDays, int hour, int minute) {
+    public MessagingScheduler(String name, String guildId, String channelId, MessageCreateData message, RepetitionType repetitionType, List<Integer> scheduleDays, int hour, int minute) {
         this.name = name;
         this.guildId = guildId;
         this.channelId = channelId;
@@ -42,7 +42,7 @@ public class MessagingScheduler {
         return channelId;
     }
 
-    public Message getMessage() {
+    public MessageCreateData getMessage() {
         return message;
     }
 
@@ -79,10 +79,10 @@ public class MessagingScheduler {
         return sb.toString();
     }
 
-    public Message buildFullVisualRepresentation() {
+    public MessageCreateData buildFullVisualRepresentation() {
         StringBuilder sb = new StringBuilder();
         String time = Utils.calendarToTimeDisplay(scheduleManager.getNextExecutionTime());
-        String messageDisplay = message.getContentRaw();
+        String messageDisplay = message.getContent();
         if (messageDisplay.length() > 900)
             messageDisplay = messageDisplay.substring(0, 900);
 
@@ -98,6 +98,6 @@ public class MessagingScheduler {
                 .append("\n**Message**: ").append(messageDisplay);
 
         eb.setDescription(sb.toString());
-        return new MessageBuilder(eb.build()).build();
+        return MessageCreateData.fromEmbeds(eb.build());
     }
 }

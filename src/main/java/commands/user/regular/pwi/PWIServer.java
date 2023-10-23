@@ -3,10 +3,10 @@ package commands.user.regular.pwi;
 import commands.base.Category;
 import commands.base.CommandWithoutSubCommands;
 import commands.base.Requirement;
-import events.MessageReceivedEvent;
 import information.ownerconfiguration.roles.Roles;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import utils.Utils;
 
 import java.util.List;

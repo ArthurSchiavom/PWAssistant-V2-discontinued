@@ -3,7 +3,7 @@ package commands.user.admin.utilities.schedule;
 import commands.base.Command;
 import commands.base.CommandWithoutSubCommands;
 import commands.base.Requirement;
-import events.MessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import questionnaire.messagingSchedule.AddMessagingScheduleQuestionnaire;
 
 public class ScheduleAdd extends CommandWithoutSubCommands {

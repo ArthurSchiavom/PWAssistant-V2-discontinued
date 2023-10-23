@@ -2,7 +2,7 @@ package commands.user.regular.info.support;
 
 import commands.base.Category;
 import commands.base.CommandWithoutSubCommands;
-import events.MessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class Support extends CommandWithoutSubCommands {
 	public Support() {

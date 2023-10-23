@@ -3,9 +3,10 @@ package commands.user.regular.music;
 import commands.base.Command;
 import commands.base.CommandWithoutSubCommands;
 import commands.base.Requirement;
-import events.MessageReceivedEvent;
 import music.GuildMusicManager;
 import music.PlayerManager;
+import net.dv8tion.jda.api.entities.emoji.Emoji;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class MusicClearQueue extends CommandWithoutSubCommands {
 	public MusicClearQueue(Command superCommand) {
@@ -29,6 +30,6 @@ public class MusicClearQueue extends CommandWithoutSubCommands {
 		}
 
 		musicManager.scheduler.clearQueue();
-		event.getMessage().addReaction("\uD83D\uDC4C").queue();
+		event.getMessage().addReaction(Emoji.fromUnicode("\uD83D\uDC4C")).queue();
 	}
 }

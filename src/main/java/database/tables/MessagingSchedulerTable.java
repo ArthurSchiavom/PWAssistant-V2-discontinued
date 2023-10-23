@@ -6,8 +6,8 @@ import information.scheduling.manager.RepetitionType;
 import information.scheduling.manager.ScheduleManager;
 import information.scheduling.messageSchedule.MessagingScheduler;
 import information.scheduling.messageSchedule.MessagingSchedulerRegister;
-import net.dv8tion.jda.api.MessageBuilder;
 import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.utils.messages.MessageCreateData;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -62,7 +62,7 @@ public class MessagingSchedulerTable extends Table {
 					String guildId = Long.toString(rs.getLong(2));
 					String channelId = Long.toString(rs.getLong(3));
 					String messageString = rs.getString(4);
-					Message message = new MessageBuilder(messageString).build();
+					MessageCreateData message = MessageCreateData.fromContent(messageString);
 					RepetitionType repetitionType = RepetitionType.fromString(rs.getString(5));
 					List<Integer> scheduleDays = daysFromDatabaseList(rs.getString(6));
 					int hour = rs.getInt(7);
@@ -105,7 +105,7 @@ public class MessagingSchedulerTable extends Table {
 				messagingScheduler.getName()
 				, Long.parseLong(messagingScheduler.getGuildId())
 				, Long.parseLong(messagingScheduler.getChannelId())
-				, messagingScheduler.getMessage().getContentRaw()
+				, messagingScheduler.getMessage().getContent()
 				, scheduleManager.getRepetitionType().toString()
 				, daysListString
 				, scheduleManager.getHour()

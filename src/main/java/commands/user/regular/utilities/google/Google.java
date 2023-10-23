@@ -2,7 +2,7 @@ package commands.user.regular.utilities.google;
 
 import commands.base.Category;
 import commands.base.CommandWithoutSubCommands;
-import events.MessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class Google extends CommandWithoutSubCommands {
 	public Google() {

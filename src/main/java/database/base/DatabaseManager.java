@@ -7,7 +7,11 @@ import database.tables.TriggersTable;
 import information.ownerconfiguration.Database;
 
 import javax.annotation.CheckForNull;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 /**
  * Manages interaction with the database. <b>Add tables creation to initializeDatabase.</b>
@@ -77,7 +81,7 @@ public class DatabaseManager {
 	 */
 	private void startConnection(boolean createDatabase) {
 		try {
-			connection = DriverManager.getConnection("jdbc:mysql://" + Database.databaseUrl, Database.databaseUsername, Database.databasePassword);
+			connection = DriverManager.getConnection("jdbc:mysql://" + Database.databaseUrl + "?enabledTLSProtocols=TLSv1.2", Database.databaseUsername, Database.databasePassword);
 			if (createDatabase) {
 				Statement statement = connection.createStatement();
 				String command = "CREATE DATABASE IF NOT EXISTS " + Database.databaseName;

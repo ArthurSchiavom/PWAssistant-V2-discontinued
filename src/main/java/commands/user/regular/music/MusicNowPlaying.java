@@ -6,12 +6,12 @@ import com.sedmelluq.discord.lavaplayer.track.AudioTrackInfo;
 import commands.base.Command;
 import commands.base.CommandWithoutSubCommands;
 import commands.base.Requirement;
-import events.MessageReceivedEvent;
 import information.ownerconfiguration.Embeds;
 import music.GuildMusicManager;
 import music.PlayerManager;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import utils.Utils;
 
 public class MusicNowPlaying extends CommandWithoutSubCommands {
@@ -45,6 +45,6 @@ public class MusicNowPlaying extends CommandWithoutSubCommands {
 				.setDescription("[" + trackInfo.title + "](" + trackInfo.uri + ") (" + Utils.millisecondsToMinuteSecondDisplay(track.getPosition()) + "/" + Utils.millisecondsToMinuteSecondDisplay(track.getDuration()) + ")");
 		Embeds.configDefaultEmbedColor(eb);
 		eb.setFooter("\uD83C\uDFB6");
-		event.getChannel().sendMessage(eb.build()).queue();
+		event.getChannel().sendMessageEmbeds(eb.build()).queue();
 	}
 }

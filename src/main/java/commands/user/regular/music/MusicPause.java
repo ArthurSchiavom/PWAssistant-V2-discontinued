@@ -3,10 +3,11 @@ package commands.user.regular.music;
 import commands.base.Command;
 import commands.base.CommandWithoutSubCommands;
 import commands.base.Requirement;
-import events.MessageReceivedEvent;
 import music.GuildMusicManager;
 import music.PlayerManager;
 import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.entities.emoji.Emoji;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class MusicPause extends CommandWithoutSubCommands {
 	public MusicPause(Command superCommand) {
@@ -27,6 +28,6 @@ public class MusicPause extends CommandWithoutSubCommands {
 				.getGuildMusicManager(guild.getIdLong());
 
 		musicManager.player.setPaused(true);
-		event.getMessage().addReaction("\u23F8").queue();
+		event.getMessage().addReaction(Emoji.fromUnicode("\u23F8")).queue();
 	}
 }

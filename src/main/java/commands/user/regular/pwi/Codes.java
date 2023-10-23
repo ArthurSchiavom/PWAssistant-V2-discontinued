@@ -2,7 +2,7 @@ package commands.user.regular.pwi;
 
 import commands.base.Category;
 import commands.base.CommandWithoutSubCommands;
-import events.MessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.net.URL;
 import java.util.Scanner;

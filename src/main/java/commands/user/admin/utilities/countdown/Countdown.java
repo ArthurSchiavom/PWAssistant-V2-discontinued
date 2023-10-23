@@ -4,13 +4,13 @@ import commands.base.Category;
 import commands.base.CommandWithoutSubCommands;
 import commands.base.Requirement;
 import error.Reporter;
-import events.MessageReceivedEvent;
 import information.clocks.ClockRegister;
 import information.clocks.CountdownClock;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.entities.MessageEmbed;
+import net.dv8tion.jda.api.entities.channel.middleman.MessageChannel;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.util.Calendar;
 
@@ -65,7 +65,7 @@ public class Countdown extends CommandWithoutSubCommands {
 		String channelId = channel.getId();
 		MessageEmbed loadingEmbed = new EmbedBuilder().setTitle("【Ｌｏａｄｉｎｇ】")
 				.setDescription("This can take a few seconds.").build();
-		Message loadingMsg = channel.sendMessage(loadingEmbed).complete();
+		Message loadingMsg = channel.sendMessageEmbeds(loadingEmbed).complete();
 		String loadingMsgId = loadingMsg.getId();
 		CountdownClock clock = new CountdownClock(currentTime.toInstant()
 				, guildId

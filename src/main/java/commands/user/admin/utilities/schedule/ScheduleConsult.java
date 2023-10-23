@@ -3,10 +3,10 @@ package commands.user.admin.utilities.schedule;
 import commands.base.Command;
 import commands.base.CommandWithoutSubCommands;
 import commands.base.Requirement;
-import events.MessageReceivedEvent;
 import information.scheduling.messageSchedule.MessagingScheduler;
 import information.scheduling.messageSchedule.MessagingSchedulerRegister;
-import net.dv8tion.jda.api.entities.MessageChannel;
+import net.dv8tion.jda.api.entities.channel.middleman.MessageChannel;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.util.List;
 

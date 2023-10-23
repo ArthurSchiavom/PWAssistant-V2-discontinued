@@ -2,10 +2,10 @@ package commands.user.regular.pwi;
 
 import commands.base.Category;
 import commands.base.CommandWithoutSubCommands;
-import events.MessageReceivedEvent;
 import information.ownerconfiguration.Embeds;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -37,12 +37,12 @@ public class PWIServerStatus extends CommandWithoutSubCommands {
 					.setDescription("Checking servers. . .");
 			Embeds.configDefaultEmbedColor(eb);
 
-			Message msg = event.getChannel().sendMessage(eb.build()).complete();
+			Message msg = event.getChannel().sendMessageEmbeds(eb.build()).complete();
 
 			String statusesString = getServersAvailabilityDisplay();
 			eb.setDescription(statusesString);
 
-			msg.editMessage(eb.build()).queue();
+			msg.editMessageEmbeds(eb.build()).queue();
 		} catch (Exception e) {/* Probably just no permission to send msg in the channel */}
 	}
 

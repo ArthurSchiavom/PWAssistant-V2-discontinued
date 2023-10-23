@@ -1,10 +1,8 @@
 package events.operators;
 
 import commands.CommandExecutor;
-import events.EventsManager;
-import events.MessageReceivedEvent;
 import information.triggers.TriggerRegister;
-import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import questionnaire.base.QuestionnaireRegister;
 
 /**
@@ -17,16 +15,15 @@ public class GuildMessageEventOperator {
 	 *
 	 * @param event The event to process.
 	 */
-	public void processMessageReceived(GuildMessageReceivedEvent event) {
+	public void processMessageReceived(MessageReceivedEvent event) {
 		if (event.getAuthor().isBot())
 			return;
 
 		GuildMessageDeleteEventOperator.storeMessage(event.getMessage());
 
-		MessageReceivedEvent messageReceivedEvent = new MessageReceivedEvent(event);
-		if (!QuestionnaireRegister.getInstance().processPossibleReply(messageReceivedEvent)) {
-			CommandExecutor.getInstance().executePossibleCommandRequest(messageReceivedEvent);
+		if (!QuestionnaireRegister.getInstance().processPossibleReply(event)) {
+			CommandExecutor.getInstance().executePossibleCommandRequest(event);
 		}
-		TriggerRegister.getInstance().processEvent(messageReceivedEvent);
+		TriggerRegister.getInstance().processEvent(event);
 	}
 }

@@ -13,8 +13,18 @@ tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
 }
 
+// START: BUILD JAR CONFIG
+manifest {
+    attributes "Main-Class": "boot.Main"
+}
+// END: BUILD JAR CONFIG
+
 repositories {
     mavenCentral()
+    maven {
+        name 'm2-dv8tion'
+        url 'https://m2.dv8tion.net/releases'
+    }
     jcenter()
     flatDir {
         dirs 'lib'
@@ -23,9 +33,9 @@ repositories {
 }
 
 dependencies {
-    compile 'net.dv8tion:JDA:4.2.0_168'
+    implementation("net.dv8tion:JDA:5.0.0-beta.16")
     compile group: 'com.github.FredBoat', name: 'Lavalink-Client', version: '4.0'
-    compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.17'
+    compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.30'
     compile 'com.google.api-client:google-api-client:1.30.2'
     implementation name: 'slf4j-simple-1.7.26'
     testCompile group: 'junit', name: 'junit', version: '4.12'

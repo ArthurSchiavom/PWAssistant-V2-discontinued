@@ -1,7 +1,7 @@
 package information.clocks;
 
 import net.dv8tion.jda.api.JDA;
-import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.utils.messages.MessageEditData;
 import utils.MessageUnavailableException;
 import utils.Utils;
 
@@ -26,7 +26,7 @@ public abstract class Clock {
 	 * @param newMsg The new clock message.
 	 * @return If the clock should be kept active.
 	 */
-	protected boolean editClockMessageSync(JDA jda, Message newMsg) {
+	protected boolean editClockMessageSync(JDA jda, MessageEditData newMsg) {
 		boolean shouldKeepClock = true;
 		try {
 			Utils.retrieveMessageIfAvailable(jda, getGuildId(), getChannelId(), getMessageId())

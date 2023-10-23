@@ -1,7 +1,7 @@
 package commands.base;
 
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.MessageBuilder;
+import net.dv8tion.jda.api.utils.messages.MessageCreateBuilder;
 import utils.Utils;
 
 import javax.annotation.Nullable;
@@ -72,7 +72,7 @@ public abstract class CommandWithoutSubCommands extends Command {
 
         Footer: Random fact about the bot or something else
          */
-        MessageBuilder messageBuilder = new MessageBuilder();
+        MessageCreateBuilder messageBuilder = new MessageCreateBuilder();
         EmbedBuilder eb = new EmbedBuilder();
 
         setHelpEmbedHeader(eb);
@@ -80,7 +80,7 @@ public abstract class CommandWithoutSubCommands extends Command {
         this.setHelpEmbedAliases(eb, this.getNames());
         this.setHelpEmbedColor(eb);
 
-        messageBuilder.setEmbed(eb.build());
+        messageBuilder.setEmbeds(eb.build());
         this.setHelpMessage(messageBuilder.build());
     }
 

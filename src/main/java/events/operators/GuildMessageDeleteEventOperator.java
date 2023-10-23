@@ -2,11 +2,10 @@ package events.operators;
 
 import information.ownerconfiguration.Embeds;
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.MessageBuilder;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.Role;
-import net.dv8tion.jda.api.events.message.guild.GuildMessageDeleteEvent;
+import net.dv8tion.jda.api.events.message.MessageDeleteEvent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +14,7 @@ public class GuildMessageDeleteEventOperator {
     private static List<Message> messageCache = new ArrayList<>();
     private static List<Long> messageIdCache = new ArrayList<>();
 
-    public void processEvent(GuildMessageDeleteEvent event) {
+    public void processEvent(MessageDeleteEvent event) {
         if (event.getGuild().getIdLong() != 251460250115375114L)
             return;
 
@@ -42,7 +41,7 @@ public class GuildMessageDeleteEventOperator {
                         mention, author.getNickname(),
                         author.getUser().getAsTag(), author.getId(),
                         msg.getChannel().getId()))
-                .embed(eb.build())
+                .setEmbeds(eb.build())
                 .queue();
     }
 

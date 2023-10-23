@@ -1,6 +1,6 @@
 package questionnaire.base;
 
-import events.MessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import javax.annotation.CheckForNull;
 import java.util.ArrayList;

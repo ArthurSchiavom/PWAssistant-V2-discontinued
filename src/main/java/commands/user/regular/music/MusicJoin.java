@@ -2,8 +2,9 @@ package commands.user.regular.music;
 
 import commands.base.Command;
 import commands.base.CommandWithoutSubCommands;
-import events.MessageReceivedEvent;
-import net.dv8tion.jda.api.entities.VoiceChannel;
+import net.dv8tion.jda.api.entities.channel.middleman.AudioChannel;
+import net.dv8tion.jda.api.entities.emoji.Emoji;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.managers.AudioManager;
 
 public class MusicJoin extends CommandWithoutSubCommands {
@@ -19,11 +20,11 @@ public class MusicJoin extends CommandWithoutSubCommands {
 
 	@Override
 	protected void runCommandActions(MessageReceivedEvent event) {
-		VoiceChannel channel = event.getMember().getVoiceState().getChannel();
+		AudioChannel channel = event.getMember().getVoiceState().getChannel();
 		try {
 			AudioManager audioManager = event.getGuild().getAudioManager();
 			audioManager.openAudioConnection(channel);
-			event.getMessage().addReaction("\uD83D\uDC4C").queue();
+			event.getMessage().addReaction(Emoji.fromUnicode("\uD83D\uDC4C")).queue();
 		} catch (Exception e) {
 			event.getChannel().sendMessage("You aren't in any voice channel or I don't have permission to join the voice channel.").queue();
 		}

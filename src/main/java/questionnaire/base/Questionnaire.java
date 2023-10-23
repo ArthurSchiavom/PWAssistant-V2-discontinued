@@ -1,8 +1,8 @@
 package questionnaire.base;
 
-import events.MessageReceivedEvent;
 import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.MessageChannel;
+import net.dv8tion.jda.api.entities.channel.middleman.MessageChannel;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import questionnaire.base.question.MessageType;
 import questionnaire.base.question.QuestionManager;
 import questionnaire.base.question.ReplyProcessorFunc;
@@ -122,9 +122,6 @@ public abstract class Questionnaire {
 
 	/**
 	 * Moves over to the updateNextExecutionTime question and asks it.
-	 *
-	 * @param deleteQuestion If the question asked should be removed at the end of the questionnaire.
-	 *                       <br>Note: The question might still be deleted if the questionnaire was requested to delete all questions.
 	 */
 	protected void nextQuestion() {
 		String questionText = questionManager.goToNextQuestion();
@@ -176,8 +173,6 @@ public abstract class Questionnaire {
 
 	/**
 	 * Initialize the timeout timer for a question.
-	 *
-	 * @param nQuestion The number of the question.
 	 */
 	public void questionnaireTimedOut() {
 		try {

@@ -3,9 +3,10 @@ package commands.user.regular.music;
 import commands.base.Command;
 import commands.base.CommandWithoutSubCommands;
 import commands.base.Requirement;
-import events.MessageReceivedEvent;
 import music.PlayerManager;
 import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.entities.emoji.Emoji;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class MusicLeave extends CommandWithoutSubCommands {
 	public MusicLeave(Command superCommand) {
@@ -26,6 +27,6 @@ public class MusicLeave extends CommandWithoutSubCommands {
 
 		PlayerManager.getInstance().unregisterMusicManager(guild.getIdLong());
 		guild.getAudioManager().closeAudioConnection();
-		event.getMessage().addReaction("\uD83D\uDC4B").queue();
+		event.getMessage().addReaction(Emoji.fromUnicode("\uD83D\uDC4B")).queue();
 	}
 }

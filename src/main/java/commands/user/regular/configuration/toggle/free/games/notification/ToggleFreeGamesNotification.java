@@ -3,17 +3,15 @@ package commands.user.regular.configuration.toggle.free.games.notification;
 import commands.base.Category;
 import commands.base.CommandWithoutSubCommands;
 import commands.base.Requirement;
-import events.MessageReceivedEvent;
 import information.ownerconfiguration.roles.Roles;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
-import net.dv8tion.jda.api.entities.MessageChannel;
-import net.dv8tion.jda.api.entities.Role;
+import net.dv8tion.jda.api.entities.channel.middleman.MessageChannel;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 public class ToggleFreeGamesNotification extends CommandWithoutSubCommands {
     public ToggleFreeGamesNotification() {
