@@ -1,3 +1,6 @@
+# This version is outdated
+You can find the new version at https://github.com/ArthurSchiavom/PWAssistant-V3. V3 follows the new Discord policies for verified bots, which is mandatory for bots in over 100 servers. It was also built from scratch so it's using better frameworks and has a (much) cleaner code.
+
 # PWAssistant
 
 PWAssistant foi um projeto começado em 2017, com o objetivo de facilitar a administração de um servidor do Discord e melhorar a experiência dos utilizadores. O bot foi aberto para mais servidores e, aquando da escrita desta mensagem em Julho de 2020, adicionado a mais de 300 servidores, ficando disponível a mais de 50 mil utilizadores. PWAssistant é um bot de chat, que responde e gera eventos como receção de mensagens, registo de novos utilizadores, etc. O servidor em causa é relativo a um vídeo-jogo e certas funcionalidades são específicas a esse jogo.
