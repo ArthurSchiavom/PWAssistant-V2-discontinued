@@ -1,4 +1,4 @@
-# This version is outdated
+# THIS VERSION IS OUTDATED
 You can find the new version at https://github.com/ArthurSchiavom/PWAssistant-V3. V3 follows the new Discord policies for verified bots, which is mandatory for bots in over 100 servers. It was also built from scratch so it's using better frameworks and has a (much) cleaner code.
 
 # PWAssistant
